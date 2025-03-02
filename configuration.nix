@@ -10,8 +10,22 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+  enable = true;
+  version = 2; # Use GRUB 2
+  device = "nodev"; # Use EFI mode
+  efiSupport = true;
+  useOSProber = true; # Enable OS detection for dual boot
+  configurationLimit = 10;
+  theme = pkgs.fetchFromGitHub {
+    owner = "shvchk";
+    repo = "fallout-grub-theme";
+    rev = "80734103d0b48d724f0928e8082b6755bd3b2078";
+    sha256 = "sha256-7kvLfD6Nz4cEMrmCA9yq4enyqVyqiTkVZV5y4RyUatU=";
+  };
+};
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -96,7 +110,13 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable flakes and nix commands
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 1w";
+  };
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.auto-optimise-store = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
