@@ -3,29 +3,12 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {pkgs, ...}: {
   imports = [
-    ./core/core-apps.nix
-    ./core/nvidia.nix
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./core/boot.nix
+    ./core/nvidia.nix
+    ./core/nix.nix
+    ./core/core-apps.nix
   ];
-
-  # Bootloader.
-  # boot.loader.systemd-boot.enable = false;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub = {
-  enable = true;
-  version = 2; # Use GRUB 2
-  device = "nodev"; # Use EFI mode
-  efiSupport = true;
-  useOSProber = true; # Enable OS detection for dual boot
-  configurationLimit = 10;
-  theme = pkgs.fetchFromGitHub {
-    owner = "shvchk";
-    repo = "fallout-grub-theme";
-    rev = "80734103d0b48d724f0928e8082b6755bd3b2078";
-    sha256 = "sha256-7kvLfD6Nz4cEMrmCA9yq4enyqVyqiTkVZV5y4RyUatU=";
-  };
-};
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -34,9 +17,6 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # delete preinstalled apps
-  environment.gnome.excludePackages = with pkgs; [gnome-tour gnome-weather gnome-music nixos-render-docs pantheon.epiphany geary gnome-maps];
-  services.xserver.excludePackages = with pkgs; [xterm];
   # Enable networking
   networking.networkmanager.enable = true;
 
@@ -109,22 +89,14 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Enable flakes and nix commands
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 1w";
-  };
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.settings.auto-optimise-store = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+   programs.gnupg.agent = {
+     enable = true;
+     enableSSHSupport = true;
+   };
 
   # List services that you want to enable:
 
@@ -135,7 +107,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+   networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
