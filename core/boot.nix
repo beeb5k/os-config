@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 50;
 
   # ---- Grub ----
   boot.loader.grub = {
@@ -8,7 +9,6 @@
     efiSupport = true;
     useOSProber = true; # Enable OS detection for dual boot
     configurationLimit = 10;
-    timeout = 50;
     theme = pkgs.fetchFromGitHub {
       owner = "shvchk";
       repo = "fallout-grub-theme";

@@ -5,5 +5,6 @@
     errands
     dconf-editor
     bibata-cursors
+    go
   ];
 }
