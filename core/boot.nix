@@ -1,5 +1,4 @@
-{pkgs, ...} : {
-
+{pkgs, ...}: {
   boot.loader.efi.canTouchEfiVariables = true;
 
   # ---- Grub ----
@@ -25,4 +24,4 @@
     configurationLimit = 10;
   };
   */
-} 
+}

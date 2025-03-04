@@ -42,6 +42,28 @@
           pkgs.gnomeExtensions.gsconnect.extensionUuid
         ];
       };
+
+      "org/gnome/shell/extensions/just-perfection" = {
+        theme = true; # Enable custom shell theme
+        animation = 5; # lower the value, faster the animation. Default is 1
+        invert-calendar-column-items = true;
+        world-clock = false; # Disable World Clock in clock menu
+        startup-status = 0; # Startup status: Desktop (0 = Desktop, 1 = Overview)
+      };
+
+      "org/gnome/shell/extensions/dash-to-dock" = {
+        transparency-mode = "FIXED"; # Fixed transparency mode
+        background-opacity = 0.8; # 80% opacity
+        background-color = "rgb(0, 0, 0)"; # Black background
+
+        apply-custom-theme = false; # Enable custom theme
+        custom-background-color = true;
+        running-indicator-style = "DASHES";
+      };
+
+      "org/gnome/shell/extensions/tilingshell" = {
+        show-indicator = false; # Hide the indicator
+      };
     };
   };
 }

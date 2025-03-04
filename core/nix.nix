@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   nix = {
     settings = {
       experimental-features = ["nix-command" "flakes"];
@@ -19,5 +16,5 @@
     # Pin nixpkgs for older Nix tools
     nixPath = ["nixpkgs=${pkgs.path}"];
   };
-  environment.systemPackages = with pkgs; [nixd alejandra];
+  environment.systemPackages = with pkgs; [nil alejandra];
 }

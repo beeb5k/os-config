@@ -3,5 +3,7 @@
     gnome-tweaks
     decibels
     errands
+    dconf-editor
+    bibata-cursors
   ];
 }
