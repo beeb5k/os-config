@@ -1,0 +1,1 @@
+[main.go](./go/main.go) does not handle broken symlinks. If a symlink's target is deleted which will happen if you run the script 2nd time, the symlink will not update automatically. resulting in an empty hardware configuration file. Handle such cases manually.

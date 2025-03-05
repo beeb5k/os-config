@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 )
@@ -27,46 +28,77 @@ const (
 	Normal  Status = "normal"  // Indicates a normal message
 )
 
-// main is the entry point of the script
-// It checks root privileges, verifies configuration files,
-// backs up existing configs, and creates symlinks
+// ScriptError provides more detailed error information
+type ScriptError struct {
+	Op  string
+	Err error
+}
+
+// Error implements the error interface for ScriptError
+func (e *ScriptError) Error() string {
+	return fmt.Sprintf("%s failed: %v", e.Op, e.Err)
+}
+
 func main() {
-	uid := os.Getuid()
-	if uid != 0 {
-		print_msg(Error, "This script requires root privileges to run")
+	if err := runNixConfigScript(); err != nil {
+		var scriptErr *ScriptError
+		if errors.As(err, &scriptErr) {
+			print_msg(Error, fmt.Sprintf("Operation %s failed: %v", scriptErr.Op, scriptErr.Err))
+		} else {
+			print_msg(Error, "Unexpected error:", err)
+		}
 		os.Exit(1)
 	}
+}
 
+// runNixConfigScript orchestrates the entire configuration management process
+func runNixConfigScript() error {
+	// Validate root privileges
+	if err := validateRootPrivileges(); err != nil {
+		return &ScriptError{Op: "Root Privilege Check", Err: err}
+	}
+
+	// Get current working directory
 	curr_dir, err := os.Getwd()
 	if err != nil {
-		print_msg(Error, "error while getting current directory")
+		return &ScriptError{Op: "Get Current Directory", Err: err}
 	}
 
+	// Files to process
 	files := []string{"configuration.nix", "hardware-configuration.nix", "flake.nix", "flake.lock"}
 
-	err = check_file_exists(files, curr_dir)
-	if err != nil {
-		print_msg(Error, err)
-		os.Exit(1)
+	// Check file existence
+	if err := check_file_exists(files, curr_dir); err != nil {
+		return &ScriptError{Op: "File Existence Check", Err: err}
 	}
 
-	err = backup_files(curr_dir)
-	if err != nil {
-		print_msg(Error, err)
-		os.Exit(1)
+	// Backup existing configuration files
+	if err := backup_files(); err != nil {
+		return &ScriptError{Op: "Backup Configuration Files", Err: err}
 	}
 
-	err = replace_hardware_file(curr_dir)
-	if err != nil {
-		print_msg(Error, err)
-		os.Exit(1)
+	// Replace hardware configuration file
+	if err := replace_hardware_file(curr_dir); err != nil {
+		return &ScriptError{Op: "Replace Hardware Configuration", Err: err}
 	}
 
-	err = create_symlink(files, curr_dir)
-	if err != nil {
-		print_msg(Error, err)
-		os.Exit(1)
+	// Create symlinks
+	if err := create_symlink(files, curr_dir); err != nil {
+		return &ScriptError{Op: "Create Symlinks", Err: err}
 	}
+
+	// Print success message
+	print_msg(Normal, "Completed successfully")
+	return nil
+}
+
+// validateRootPrivileges checks if the script is run with root privileges
+func validateRootPrivileges() error {
+	uid := os.Getuid()
+	if uid != 0 {
+		return fmt.Errorf("you must run this script as root")
+	}
+	return nil
 }
 
 // create_symlink creates symbolic links for the specified files
@@ -99,34 +131,49 @@ func create_symlink(files []string, curr_dir string) error {
 // backup_files creates a backup of configuration files
 // in a user-specific backup directory
 // Returns an error if backup fails
-func backup_files(curr_dir string) error {
+func backup_files() error {
 	path := "/etc/nixos"
-	home_dir := get_home_dir()
-
-	target := home_dir + "/" + "config-backup/"
+	target := get_home_dir() + "/config-backup/"
 
 	files := []string{"hardware-configuration.nix", "configuration.nix"}
 
-	err := check_file_exists(files, curr_dir)
+	err := check_file_exists(files, path)
 	if err != nil {
 		return err
 	}
 
-	err = os.Mkdir(get_home_dir()+"/config-backup", 0755)
+	err = create_backup_directory()
 	if err != nil {
 		return fmt.Errorf("error while creating backup directory: %v", err)
 	}
 
 	for _, file := range files {
-		if _, err := os.Stat(path + "/" + file); err == nil {
-			err := os.Rename(file, target+file)
-			if err != nil {
-				return fmt.Errorf("error while moving file: %v", err)
-			}
+		err := os.Rename(path+"/"+file, target+file)
+		if err != nil {
+			return fmt.Errorf("error while moving file: %v", err)
 		}
 	}
 
 	print_msg(Success, "files backed up successfully to: ", get_home_dir()+"/config-backup")
+	return nil
+}
+
+func create_backup_directory() error {
+	if _, err := os.Stat(get_home_dir() + "/config-backup"); err == nil {
+		print_msg(Warning, "backup directory already exists")
+		print_msg(Info, "removing existing backup directory")
+		err := os.RemoveAll(get_home_dir() + "/config-backup")
+		fmt.Println("removed")
+		if err != nil {
+			return fmt.Errorf("error while removing existing backup directory: %v", err)
+		}
+	}
+
+	err := os.Mkdir(get_home_dir()+"/config-backup", 0755)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
