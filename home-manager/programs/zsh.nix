@@ -27,18 +27,16 @@
       # ---- Plugins ----
       zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-      zinit ice wait"1" lucid
       zinit light zsh-users/zsh-syntax-highlighting
       zinit light zsh-users/zsh-autosuggestions
 
-      zinit ice wait"2" lucid
-      zinit light zsh-users/zsh-history-substring-search
+      zinit ice wait"1" lucid
       zinit light Aloxaf/fzf-tab
       zinit light joshskidmore/zsh-fzf-history-search
       zinit light mrjohannchang/zsh-interactive-cd
 
-      zinit ice wait"3" lucid
-      zinit light zsh-users/zsh-completions
+      zinit ice wait"2" lucid
+      zinit ice depth=1; zinit light zsh-users/zsh-completions
 
       # ---- load p10k theme ----
       [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

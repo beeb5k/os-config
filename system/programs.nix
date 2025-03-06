@@ -10,6 +10,7 @@
     ripgrep
     fzf
     dconf
+    go
   ];
 
   # delete preinstalled apps

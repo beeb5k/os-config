@@ -30,7 +30,9 @@
           appindicator.extensionUuid
           caffeine.extensionUuid
           privacy-settings-menu.extensionUuid
+          system-monitor.extensionUuid
         ];
+
         disabled-extensions = [
           "window-list@gnome-shell-extensions.gcampax.github.com"
           "windowsNavigator@gnome-shell-extensions.gcampax.github.com"
@@ -38,7 +40,7 @@
           "auto-move-windows@gnome-shell-extensions.gcampax.github.com"
           "apps-menu@gnome-shell-extensions.gcampax.github.com"
           "native-window-placement@gnome-shell-extensions.gcampax.github.com"
-          "status-icons@gnome-shell-extensions.gcampax.github.com"
+          "stat"
           pkgs.gnomeExtensions.gsconnect.extensionUuid
         ];
       };
@@ -63,6 +65,14 @@
 
       "org/gnome/shell/extensions/tilingshell" = {
         show-indicator = false; # Hide the indicator
+      };
+
+      "org/gnome/shell/extensions/system-monitor" = {
+        show-cpu = true;
+        show-memory = true;
+        show-download = true;
+        show-upload = false;
+        show-swap = false;
       };
     };
   };

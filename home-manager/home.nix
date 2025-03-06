@@ -3,10 +3,11 @@
     ./programs/zsh.nix
     ./programs/git.nix
     ./programs/obs.nix
+    ./programs/firefox.nix
     ./programs/fonts.nix
     ./gnome/settings.nix
     ./gnome/extensions.nix
-    ./gnome/core-apps.nix
+    ./gnome/apps.nix
     ./gnome/desktopEntries.nix
   ];
 
@@ -25,6 +26,7 @@
     })
     vscode
     btop
+    nitch
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

@@ -4,10 +4,10 @@
 {pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
-    ./core/boot.nix
-    ./core/nvidia.nix
-    ./core/nix.nix
-    ./core/core-apps.nix
+    ./system/boot.nix
+    ./system/nvidia.nix
+    ./system/nix.nix
+    ./system/programs.nix
   ];
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -75,13 +75,13 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.beeb5k = {
+    description = "Vivek Tiwari";
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
+  # programs.firefox.enable = true;
 
   # zsh
   programs.zsh.enable = true;
