@@ -11,6 +11,7 @@
     fzf
     dconf
     go
+    nim
   ];
 
   # delete preinstalled apps
