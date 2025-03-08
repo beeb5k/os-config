@@ -1,4 +1,4 @@
-import std/posix, os, strformat;
+import std/posix, os, strformat, std/strutils;
 
 proc validateRootPrivileges() =
   ##[ checks if the user is root ]##
@@ -75,6 +75,33 @@ proc create_symlink(source_path: string, dist_path: string) =
       echo "Error: " & getCurrentExceptionMsg();
       quit(1);
 
+proc change_file_owner(curr_Dir: string) =
+  ##[ changes the backup folder and files owner from root to current user ]##
+  let backup_dir = curr_Dir & "backup/";
+  if dirExists(backup_dir):
+    # Get the original user's ID from environment variables
+    let sudo_uid_str = getEnv("SUDO_UID")
+    let sudo_gid_str = getEnv("SUDO_GID")
+
+    if sudo_uid_str.len > 0 and sudo_gid_str.len > 0:
+      let uid = Uid(parseInt(sudo_uid_str))
+      let gid = Gid(parseInt(sudo_gid_str))
+
+      echo "Changing ownership to UID: ", uid, " GID: ", gid
+
+      # Change ownership of the backup directory itself
+      if chown(backup_dir.cstring, uid, gid) != 0:
+        echo "Error: Failed to change ownership of backup directory"
+        quit(1)
+
+      # Change ownership of all files within the backup directory
+      for file in walkDir(backup_dir):
+        if chown(file.path.cstring, uid, gid) != 0:
+          echo "Error: Failed to change ownership of " & file.path
+          quit(1)
+    else:
+      echo "Error: Could not determine original user (SUDO_UID/SUDO_GID not set)"
+      quit(1)
 
 proc main() =
   let TARGET_PATH = "/etc/nixos/"; # path to the default nixos configuration files
@@ -87,6 +114,7 @@ proc main() =
   replace_hardware_conf(TARGET_PATH, DEST_PATH);
   create_backup(TARGET_PATH, DEST_PATH);
   create_symlink(TARGET_PATH, DEST_PATH);
+  change_file_owner(DEST_PATH);
 
 
 
