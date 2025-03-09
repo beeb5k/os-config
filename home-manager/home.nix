@@ -3,7 +3,7 @@
     ./programs/zsh.nix
     ./programs/git.nix
     ./programs/obs.nix
-    ./programs/nvim.nix
+    # ./programs/nvim.nix
     ./programs/firefox.nix
     ./programs/fonts.nix
     ./gnome/settings.nix
@@ -29,6 +29,7 @@
     btop
     nitch
     blackbox-terminal
+    helix
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -37,7 +38,7 @@
   };
 
   home.sessionVariables = {
-    EDITOR = "nvim";
+    EDITOR = "hx";
   };
 
   # Let Home Manager install and manage itself.
