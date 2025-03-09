@@ -25,10 +25,7 @@
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {inherit inputs;};
-      modules = [
-        ./configuration.nix
-        home-manager.nixosModules.home-manager
-      ];
+      modules = [./configuration.nix];
     };
     homeConfigurations."beeb5k" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
