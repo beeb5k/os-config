@@ -8,7 +8,7 @@
 
     firefox = {
       name = "Firefox";
-      exec = "firefox";
+      exec = "firefox %u";
       icon = "/home/beeb5k/.mozilla/firefox/default/chrome/firefox-gnome-theme/icon.svg";
     };
   };

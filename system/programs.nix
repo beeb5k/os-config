@@ -15,6 +15,6 @@
   ];
 
   # delete preinstalled apps
-  environment.gnome.excludePackages = with pkgs; [gnome-tour gnome-weather gnome-music pantheon.epiphany geary gnome-maps];
+  environment.gnome.excludePackages = with pkgs; [gnome-tour gnome-weather gnome-music pantheon.epiphany geary gnome-maps kgx];
   services.xserver.excludePackages = with pkgs; [xterm];
 }
