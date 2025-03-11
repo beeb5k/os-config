@@ -5,13 +5,16 @@
       auto-optimise-store = true;
     };
 
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 1w";
-    };
     # Pin nixpkgs for older Nix tools
     nixPath = ["nixpkgs=${pkgs.path}"];
   };
-  environment.systemPackages = with pkgs; [nil alejandra];
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep-since 4d --keep 2";
+    flake = "/home/beeb5k/nixos-config";
+  };
+
+  environment.systemPackages = with pkgs; [nixd alejandra];
 }

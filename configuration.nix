@@ -3,11 +3,11 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {pkgs, ...}: {
   imports = [
+    ./modules/system/nvidia.nix
+    ./modules/system/boot.nix
+    ./modules/system/nix.nix
+    ./nixpkgs/system.nix
     ./hardware-configuration.nix
-    ./system/boot.nix
-    ./system/nvidia.nix
-    ./system/nix.nix
-    ./system/programs.nix
   ];
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -19,6 +19,10 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # delete preinstalled apps
+  environment.gnome.excludePackages = with pkgs; [gnome-tour gnome-weather gnome-music pantheon.epiphany geary gnome-maps];
+  services.xserver.excludePackages = with pkgs; [xterm];
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";

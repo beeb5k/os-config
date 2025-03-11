@@ -8,7 +8,7 @@
     device = "nodev"; # Use EFI mode
     efiSupport = true;
     useOSProber = true; # Enable OS detection for dual boot
-    configurationLimit = 10;
+    configurationLimit = 4;
     theme = pkgs.fetchFromGitHub {
       owner = "shvchk";
       repo = "fallout-grub-theme";

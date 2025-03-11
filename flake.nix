@@ -16,7 +16,6 @@
   outputs = {
     nixpkgs,
     home-manager,
-    firefox-gnome-theme,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -29,7 +28,7 @@
     };
     homeConfigurations."beeb5k" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [./home-manager/home.nix];
+      modules = [./home.nix];
 
       extraSpecialArgs = {inherit inputs;};
     };

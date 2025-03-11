@@ -9,8 +9,8 @@
       ignoreSpace = true;
       extended = true;
       share = false;
-      # size = 10000;
-      save = 10000;
+      size = 10000;
+      # save = 10000;
     };
 
     # Initialize Zinit and add it to ZSH
