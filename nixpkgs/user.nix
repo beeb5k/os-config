@@ -7,7 +7,6 @@
     # Unstable packages
     (with unstable; [
       vscode
-      zed-editor
       go
     ])
     ++
@@ -18,7 +17,6 @@
       })
       gnome-tweaks
       decibels
-      errands
       dconf-editor
       bibata-cursors
       btop
