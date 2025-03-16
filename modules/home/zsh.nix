@@ -6,11 +6,12 @@
     history = {
       expireDuplicatesFirst = true;
       ignoreDups = true;
+      ignoreAllDups = true;
       ignoreSpace = true;
       extended = true;
-      share = false;
-      size = 10000;
-      # save = 10000;
+      share = true;
+      size = 1000;
+      save = 1000;
     };
 
     # Initialize Zinit and add it to ZSH
@@ -24,22 +25,26 @@
       # ---- Source Zinit ----
       source $HOME/.zinit/bin/zinit.zsh
 
+      # ---- load p10k theme ----
+      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
       # ---- Plugins ----
       zinit ice depth=1; zinit light romkatv/powerlevel10k
 
-      zinit light zsh-users/zsh-syntax-highlighting
       zinit light zsh-users/zsh-autosuggestions
 
       zinit ice wait"1" lucid
+      zinit light zsh-users/zsh-syntax-highlighting
+
+      zinit ice wait"1" lucid
       zinit light Aloxaf/fzf-tab
+      zinit ice wait"1" lucid
       zinit light joshskidmore/zsh-fzf-history-search
+      zinit ice wait"1" lucid
       zinit light mrjohannchang/zsh-interactive-cd
 
       zinit ice wait"2" lucid
       zinit ice depth=1; zinit light zsh-users/zsh-completions
-
-      # ---- load p10k theme ----
-      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
       # ---- Keybindings ----
       bindkey '^[[1;5D' backward-word  # Ctrl + Left Arrow → Move one word left

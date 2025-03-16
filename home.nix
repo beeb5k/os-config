@@ -19,7 +19,7 @@
   };
 
   home.sessionVariables = {
-    EDITOR = "code";
+    # EDITOR = "code";
   };
 
   # Let Home Manager install and manage itself.

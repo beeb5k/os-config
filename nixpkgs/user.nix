@@ -9,6 +9,8 @@
       vscode
       go
       zig
+      rustup
+      bun
     ])
     ++
     # Stable packages
@@ -22,7 +24,6 @@
       bibata-cursors
       btop
       nitch
-      bun
-      rustup 
+      blackbox-terminal
     ]);
 }
