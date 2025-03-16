@@ -8,6 +8,7 @@
     (with unstable; [
       vscode
       go
+      zig
     ])
     ++
     # Stable packages
@@ -22,8 +23,6 @@
       btop
       nitch
       bun
-      rustup
-      zig
-
+      rustup 
     ]);
 }
