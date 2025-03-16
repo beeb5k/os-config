@@ -6,8 +6,8 @@
   home.packages =
     # Unstable packages
     (with unstable; [
-      vscode-fhs
-      zed-editor-fhs
+      vscode
+      zed-editor
       go
     ])
     ++
