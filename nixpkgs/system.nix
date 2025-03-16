@@ -10,7 +10,5 @@
     ripgrep
     fzf
     dconf
-    go
-    nim
   ];
 }

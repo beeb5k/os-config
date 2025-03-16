@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
@@ -15,11 +16,20 @@
 
   outputs = {
     nixpkgs,
+    nixpkgs-unstable,
     home-manager,
     ...
   } @ inputs: let
     system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
+    pkgs = import nixpkgs {
+      inherit system;
+      config = {allowUnfree = true;};
+    };
+
+    unstable = import nixpkgs-unstable {
+      inherit system;
+      config = {allowUnfree = true;};
+    };
   in {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
@@ -30,7 +40,7 @@
       inherit pkgs;
       modules = [./home.nix];
 
-      extraSpecialArgs = {inherit inputs;};
+      extraSpecialArgs = {inherit inputs unstable;};
     };
   };
 }

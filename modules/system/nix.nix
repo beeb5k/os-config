@@ -16,5 +16,5 @@
     flake = "/home/beeb5k/nixos-config";
   };
 
-  environment.systemPackages = with pkgs; [nixd alejandra];
+  environment.systemPackages = with pkgs; [nil nixd alejandra];
 }
