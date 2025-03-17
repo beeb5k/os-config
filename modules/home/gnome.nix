@@ -41,7 +41,7 @@
       # Dark theme by default.
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
-        cursor-theme = "Bibata-Original-Ice";
+        # cursor-theme = "Bibata-Original-Ice";
         clock-format = "12h";
         font-hinting = "medium"; # Options: none, slight, medium, full
       };

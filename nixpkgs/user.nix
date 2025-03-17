@@ -25,5 +25,12 @@
       btop
       nitch
       blackbox-terminal
+      swaylock
+      swayidle
+      waybar
+      swaybg
+      base16-schemes
+      vlc
+      imv # image viewer
     ]);
 }

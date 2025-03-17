@@ -1,5 +1,5 @@
 {...}: {
   programs.neovim = {
-    enable = false;
+    enable = true;
   };
 }
