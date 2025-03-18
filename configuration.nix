@@ -1,7 +1,11 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   imports = [
     ./modules/system/nvidia.nix
     ./modules/system/boot.nix
@@ -19,10 +23,6 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # delete preinstalled apps
-  environment.gnome.excludePackages = with pkgs; [gnome-tour gnome-weather gnome-music pantheon.epiphany geary gnome-maps];
-  services.xserver.excludePackages = with pkgs; [xterm];
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -43,28 +43,31 @@
   };
 
   environment.systemPackages = with pkgs; [
-    grim # screenshot functionality
-    slurp # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    mako # notification system developed by swaywm maintainer
     htop
+    obs-studio
+    libva-utils
+    vulkan-tools
   ];
+
+/*   xdg.portal = {
+    enable = true;
+    wlr = {
+      enable = true;
+    };
+    extraPortals = [pkgs.xdg-desktop-portal-wlr];
+  }; */
 
   # Enable the gnome-keyring secrets vault.
   # Will be exposed through DBus to programs willing to store secrets.
   services.gnome.gnome-keyring.enable = true;
 
-  # Enable the X11 windowing system.
   # services.xserver.enable = true;
   # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
   services.displayManager.ly.enable = true;
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    xwayland.enable = true;
-  };
+  programs.hyprland.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -84,12 +87,8 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    wireplumber.enable = true;
+    jack.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -100,10 +99,11 @@
     description = "Vivek Tiwari";
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "video" "audio" "input" "storage"];
   };
 
-  # programs.firefox.enable = true;
+  # Enable light for brightness control
+  programs.light.enable = true;
 
   # zsh
   programs.zsh.enable = true;

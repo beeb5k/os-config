@@ -2,8 +2,8 @@
   programs.fuzzel = {
     enable = true;
     settings.main = {
-      # Nested under 'main' section
       terminal = "${pkgs.foot}/bin/foot -e";
+      exit-immediately-if-empty = "yes"; # idk what it does found this in someones config.
     };
   };
 }

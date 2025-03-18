@@ -27,10 +27,15 @@
       blackbox-terminal
       swaylock
       swayidle
-      waybar
       swaybg
       base16-schemes
+      ffmpeg-full
+      mpv
       vlc
       imv # image viewer
+      pkgs.autotiling-rs
+      fastfetch
+      libnotify
+      satty
     ]);
 }

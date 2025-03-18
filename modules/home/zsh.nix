@@ -66,8 +66,15 @@
     '';
 
     shellAliases = {
-      ll = "ls -la";
-      update = "sudo nixos-rebuild switch";
+      sv = "sudo nvim";
+      v = "nvim";
+      c = "clear";
+      cat = "bat";
+      man = "batman";
+      ls = "eza --icons --group-directories-first -1";
+      ll = "eza --icons -lh --group-directories-first -1 --no-user --long";
+      la = "eza --icons -lah --group-directories-first -1";
+      tree = "eza --icons --tree --group-directories-first";
     };
   };
 }
