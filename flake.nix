@@ -32,11 +32,11 @@
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {inherit inputs;};
-      modules = [./configuration.nix];
+      modules = [./nixos/configuration.nix];
     };
     homeConfigurations."beeb5k" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [./home.nix stylix.homeManagerModules.stylix];
+      modules = [./home/home.nix stylix.homeManagerModules.stylix];
 
       extraSpecialArgs = {inherit inputs unstable;};
     };

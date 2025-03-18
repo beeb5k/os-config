@@ -9,6 +9,5 @@
     bat
     ripgrep
     fzf
-    dconf
   ];
 }

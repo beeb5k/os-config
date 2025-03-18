@@ -7,7 +7,7 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [vulkan-loader vulkan-validation-layers];
+    extraPackages = with pkgs; [vulkan-loader vulkan-validation-layers libva-utils vulkan-tools];
   };
 
   # Load nvidia driver for Xorg and Wayland

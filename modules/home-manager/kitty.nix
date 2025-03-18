@@ -1,6 +1,4 @@
-{...}: {
-  programs.foot.enable = true;
-
+{
   programs.kitty = {
     enable = true;
     settings = {
