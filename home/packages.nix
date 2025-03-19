@@ -3,6 +3,10 @@
     (pkgs.discord.override {
       withVencord = true;
     })
+    (nerdfonts.override {
+      fonts = ["JetBrainsMono"];
+    })
+    grim
     bibata-cursors
     nitch
     swaybg
@@ -11,8 +15,5 @@
     mpv
     imv
     fastfetch
-    libnotify
-    satty
-    wl-clipboard
   ];
 }
