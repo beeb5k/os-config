@@ -385,5 +385,7 @@ in {
     });
     style = css;
     settings = {mainBar = mainWaybarConfig;};
+    systemd.enable = true;  # Enable systemd service
+    systemd.target = "hyprland-session.target";  # Start with Hyprland
   };
 }

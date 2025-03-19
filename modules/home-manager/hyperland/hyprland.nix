@@ -40,7 +40,6 @@
       };
 
       exec-once = [
-        "waybar"
         "swaybg -i ${config.home.homeDirectory}/nixos-config/wallpapers/wallpaper.jpg -m fill"
       ];
 
