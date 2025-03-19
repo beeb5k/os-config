@@ -267,7 +267,7 @@
      }
 
      #battery {
-         color: @green_1
+         color: @green_1;
      }
 
      /* resource monitor block */
