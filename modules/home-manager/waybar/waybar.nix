@@ -3,9 +3,10 @@
   config,
   ...
 }: let
+  myCss = builtins.readFile ./style.css;
+
   workspaces = {
-    /*
-       format = "{icon}";
+    format = "{icon}";
     format-icons = {
       "1" = "";
       "2" = "";
@@ -15,8 +16,8 @@
       urgent = "";
     };
     on-click = "activate";
-    */
-    persistent_workspaces = {"*" = 10;};
+
+    # persistent_workspaces = {"*" = 10;};
   };
 
   mainWaybarConfig = {
@@ -25,22 +26,25 @@
     gtk-layer-shell = true;
     height = 14;
     position = "top";
+    spacing = 4;
+    # fixed-center = true; # idk what this does
 
     modules-left = ["custom/logo" "hyprland/workspaces" "mpris"];
     modules-right = [
       # "custom/gpu-usage"
       "cpu"
       "memory"
-      "battery"
+      "power-profiles-daemon"
       "network"
       "bluetooth"
       "pulseaudio"
       "pulseaudio#microphone"
-      "clock"
+      "battery"
       "tray"
     ];
     modules-center = [
-      "hyprland/window"
+      "clock"
+      # "hyprland/window"
     ];
 
     "wlr/workspaces" = workspaces;
@@ -53,6 +57,18 @@
       tooltip-format = " {device_alias}";
       tooltip-format-connected = "{device_enumerate}";
       tooltip-format-enumerate-connected = " {device_alias}";
+    };
+
+    power-profiles-daemon = {
+      format = "{icon}";
+      tooltip-format = "Power profile: {profile}\nDriver: {driver}";
+      tooltip = true;
+      format-icons = {
+        default = "";
+        performance = "";
+        balanced = "";
+        power-saver = "";
+      };
     };
 
     mpris = {
@@ -112,9 +128,6 @@
       };
       format = "{icon} {capacity}%";
       format-icons = ["" "" "" "" ""];
-
-      # tooltip = true;
-      # tooltip-format = "󰁹 {capacity}% {status}";
     };
 
     "custom/gpu-usage" = {
@@ -187,8 +200,8 @@
 
     "pulseaudio#microphone" = {
       format = "{format_source}";
-      format-source = "  {volume}%";
-      format-source-muted = "  {volume}%";
+      format-source = " {volume}%";
+      format-source-muted = " {volume}%";
       on-click = "pavucontrol -t 4";
       on-click-middle = "pamixer --default-source -t";
       on-scroll-down = "pamixer --default-source -d 5";
@@ -201,191 +214,15 @@
       spacing = 5;
     };
   };
-
-  css = ''
-     * {
-         border: none;
-         border-radius: 0px;
-         font-family: "JetBrainsMono Nerd Font";
-         font-weight: bold;
-         font-size: 14px;
-         min-height: 0px;
-     }
-
-     window#waybar {
-     }
-
-     tooltip {
-         background: @theme_unfocused_base_color;
-         color: @theme_text_color;
-         border-radius: 10px;
-         border-width: 1px;
-         border-style: solid;
-     }
-
-     #workspaces button {
-         box-shadow: none;
-     	  text-shadow: none;
-         border-radius: 999px;
-         margin-right: 2px;
-         margin-left: 2px;
-         color: @theme_text_color;
-         animation: gradient_f 2s ease-in infinite;
-         transition: all 0.2s cubic-bezier(.55,-0.68,.48,1.682);
-     }
-
-     #workspaces button.active {
-         color: @accent_color;
-         animation: gradient_f 20s ease-in infinite;
-         transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-     }
-
-     #workspaces button:hover {
-         color: @accent_color;
-         animation: gradient_f 20s ease-in infinite;
-         transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-     }
-     #custom-gpu-usage,
-     #cpu,
-     #memory,
-     #custom-power,
-     #clock,
-     #workspaces,
-     #window,
-     #custom-updates,
-     #network,
-     #bluetooth,
-     #pulseaudio,
-     #custom-wallchange,
-     #custom-mode,
-     #tray {
-         color: @theme_text_color;
-         background: shade(alpha(@theme_text_colors, 0.9), 1.25);
-         opacity: 1;
-         padding: 0px;
-         margin: 3px 3px 3px 3px;
-     }
-
-     #battery {
-         color: @green_1;
-     }
-
-     /* resource monitor block */
-
-     #cpu {
-         border-radius: 10px 0px 0px 10px;
-         margin-left: 4px;
-         padding-left: 4px;
-         padding-right: 4px;
-     }
-
-     #memory {
-         border-radius: 0px 10px 10px 0px;
-         border-left-width: 0px;
-         padding-left: 4px;
-         padding-right: 12px;
-         margin-right: 6px;
-     }
-
-     #custom-gpu-usage {
-         border-radius: 0px 10px 10px 0px;
-         border-left-width: 0px;
-         padding-left: 4px;
-         padding-right: 4px;
-         margin-right: 6px;
-     }
-
-
-     /* date time block */
-     #clock {
-         color: @yellow_1;
-         padding-left: 12px;
-         padding-right: 12px;
-     }
-
-
-     /* workspace window block */
-     #workspaces {
-         border-radius: 10;
-         background: mix(@theme_unfocused_base_color,white,0.1);
-     }
-
-    /*  #window {
-         border-radius: 10px 10px 10px 10px;
-         background: mix(@theme_unfocused_base_color,white,0.1);
-         padding-right: 12px;
-     } */
-
-
-     /* control center block */
-     #custom-updates {
-         border-radius: 10px 0px 0px 10px;
-         margin-left: 6px;
-         padding-left: 12px;
-         padding-right: 4px;
-     }
-
-     #network {
-         color: @purple_1;
-         padding-left: 4px;
-         padding-right: 4px;
-     }
-
-     #language {
-         color: @orange_1;
-         padding-left: 9px;
-         padding-right: 9px;
-     }
-
-     #bluetooth {
-         color: @blue_1;
-         padding-left: 4px;
-         padding-right: 0px;
-     }
-
-     #pulseaudio {
-         color: @red_1;
-         padding-left: 4px;
-         padding-right: 4px;
-     }
-
-     #pulseaudio.microphone {
-         color: @red_1;
-         padding-left: 0px;
-         padding-right: 4px;
-     }
-
-
-     /* system tray block */
-     #custom-mode {
-         border-radius: 10px 0px 0px 10px;
-         margin-left: 6px;
-         padding-left: 12px;
-         padding-right: 4px;
-     }
-
-     #custom-logo {
-         margin-left: 6px;
-         padding-right: 4px;
-         color: @blue_1;
-         font-size: 16px;
-
-     }
-
-     #tray {
-         padding-left: 4px;
-         padding-right: 4px;
-     }
-  '';
 in {
   programs.waybar = {
     enable = true;
     package = pkgs.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
-    style = css;
+    style = myCss;
     settings = {mainBar = mainWaybarConfig;};
-    systemd.enable = true;  # Enable systemd service
-    systemd.target = "hyprland-session.target";  # Start with Hyprland
+    systemd.enable = true; # Enable systemd service
+    systemd.target = "hyprland-session.target"; # Start with Hyprland
   };
 }

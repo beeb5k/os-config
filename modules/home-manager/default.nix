@@ -2,6 +2,7 @@
   imports = [
     ./hyperland/default.nix
     ./scripts/screenshot.nix
+    ./waybar/waybar.nix
     ./btop.nix
     ./desktop-entries.nix
     ./file-manager.nix
@@ -18,7 +19,6 @@
     ./obs.nix
     ./satty.nix
     ./stylix.nix
-    ./waybar.nix
     ./zsh.nix
   ];
 }
