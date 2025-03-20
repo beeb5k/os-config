@@ -55,6 +55,12 @@
       };
     };
   };
+
+  systemd.services.greetd = {
+    after = ["network-online.target"];
+    wants = ["network-online.target"];
+  };
+
   services.dbus.enable = true;
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;
