@@ -7,7 +7,6 @@
       fonts = ["JetBrainsMono"];
     })
     grim
-    bibata-cursors
     nitch
     swaybg
     base16-schemes
