@@ -13,9 +13,9 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
-    TERMINAL = "${pkgs.foot}/bin/foot";
-    TERMINAL_EMULATOR = "${pkgs.foot}/bin/foot";
-    TERM = "${pkgs.foot}/bin/foot";
+    TERMINAL = "foot";
+    TERMINAL_EMULATOR = "foot";
+    TERM = "foot";
     BROWSER = "firefox";
   };
 
