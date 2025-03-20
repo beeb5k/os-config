@@ -77,10 +77,11 @@
     variant = "";
   };
 
-  powerManagement = {
-    enable = true;
-    powertop.enable = true;
-  };
+  # This is not ideal but saves power aggressively
+  # powerManagement = {
+  #   enable = true;
+  #   powertop.enable = true;
+  # };
   services.power-profiles-daemon.enable = true;
 
   # Enable CUPS to print documents.
