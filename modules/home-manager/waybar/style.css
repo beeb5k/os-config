@@ -20,6 +20,8 @@ tooltip {
 #workspaces button {
     box-shadow: none;
     text-shadow: none;
+    padding: 0px;
+    border-radius: 7px;
     color: @theme_text_color;
     animation: gradient_f 2s ease-in infinite;
     transition: all 0.2s cubic-bezier(.55, -0.68, .48, 1.682);
@@ -81,7 +83,7 @@ tooltip {
 
 /* workspace window block */
 #workspaces {
-    border-radius: 10;
+    border-radius: 10px;
     background: mix(@theme_unfocused_base_color, white, 0.1);
 }
 
