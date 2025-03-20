@@ -56,11 +56,8 @@
       ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
       ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
       ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-      # ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"
-      # ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
-      # Uncomment the above two lines if you want to use brightnessctl instead of light
-      ",XF86MonBrightnessUp, exec, light -A 10"
-      ",XF86MonBrightnessDown, exec, light -U 10"
+      ",XF86MonBrightnessUp, exec, brightnessctl s 10%+"
+      ",XF86MonBrightnessDown, exec, brightnessctl s 10%-"
     ];
 
     bindl = [
