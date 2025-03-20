@@ -29,14 +29,14 @@
       config = {allowUnfree = true;};
     };
   in {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.dixos = nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = {inherit inputs;};
       modules = [./nixos/configuration.nix];
     };
     homeConfigurations."beeb5k" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      modules = [./home/home.nix stylix.homeManagerModules.stylix];
+      modules = [stylix.homeManagerModules.stylix ./home/home.nix];
 
       extraSpecialArgs = {inherit inputs unstable;};
     };

@@ -8,7 +8,7 @@
     ./packages.nix
   ];
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "dixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -17,6 +17,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -36,28 +37,33 @@
     LC_TIME = "en_IN";
   };
 
-  /*
-     xdg.portal = {
-    enable = true;
-    wlr = {
-      enable = true;
-    };
-    extraPortals = [pkgs.xdg-desktop-portal-wlr];
-  };
-  */
+  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  xdg.portal.enable = true;
 
   # Enable the gnome-keyring secrets vault.
   # Will be exposed through DBus to programs willing to store secrets.
   services.gnome.gnome-keyring.enable = true;
 
-  # services.xserver.enable = true;
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-  services.displayManager.ly.enable = true;
+  services.greetd = let
+    tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+  in {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${tuigreet} --time --time-format '%a, %d %b %Y • %T' --greeting  '[Become Visible]' --asterisks --remember --cmd 'uwsm start hyprland-uwsm.desktop' --theme 'border=lightred;title=gray;greet=gray;text=gray;prompt=lightred;time=gray;action=gray;button=gray;container=black;input=gray'";
+        user = "greeter";
+      };
+    };
+  };
+  services.dbus.enable = true;
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = false;
 
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -65,13 +71,19 @@
     variant = "";
   };
 
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
+  };
+  services.power-profiles-daemon.enable = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = false;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  security.polkit.enable = true;
+  # security.polkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -89,11 +101,8 @@
     description = "Vivek Tiwari";
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = ["networkmanager" "wheel" "video" "audio" "input" "storage"];
+    extraGroups = ["networkmanager" "wheel"];
   };
-
-  # Enable light for brightness control
-  programs.light.enable = true;
 
   # zsh
   programs.zsh.enable = true;
@@ -109,14 +118,12 @@
     enableSSHSupport = true;
   };
 
-  # List services that you want to enable:
-
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [];
+  networking.firewall.allowedUDPPorts = [];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 

@@ -14,5 +14,7 @@
     wl-clipboard
     pavucontrol
     pamixer
+    greetd.tuigreet
+    brightnessctl
   ];
 }
