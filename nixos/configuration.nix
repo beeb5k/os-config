@@ -19,6 +19,8 @@
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.powersave = false;
 
+  systemd.services."NetworkManager-wait-online".enable = false;
+
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
 
@@ -44,6 +46,9 @@
   # Will be exposed through DBus to programs willing to store secrets.
   services.gnome.gnome-keyring.enable = true;
 
+  hardware.enableRedistributableFirmware = true;
+  boot.initrd.kernelModules = ["mt7921e"];
+
   services.greetd = let
     tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
   in {
@@ -56,11 +61,6 @@
     };
   };
 
-  systemd.services.greetd = {
-    after = ["network-online.target"];
-    wants = ["network-online.target"];
-  };
-
   services.dbus.enable = true;
   services.blueman.enable = true;
   hardware.bluetooth.enable = true;
@@ -69,6 +69,7 @@
   programs.hyprland = {
     enable = true;
     withUWSM = true;
+    xwayland.enable = true;
   };
 
   # Configure keymap in X11
@@ -77,11 +78,11 @@
     variant = "";
   };
 
-  # This is not ideal but saves power aggressively
-  # powerManagement = {
-  #   enable = true;
-  #   powertop.enable = true;
-  # };
+  # This is shit but saves power aggressively
+  powerManagement = {
+    enable = false;
+    powertop.enable = false;
+  };
   services.power-profiles-daemon.enable = true;
 
   # Enable CUPS to print documents.
