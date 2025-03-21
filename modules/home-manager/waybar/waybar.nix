@@ -24,9 +24,9 @@
     mod = "dock";
     layer = "top";
     gtk-layer-shell = true;
-    height = 14;
+    height = 15;
     position = "top";
-    spacing = 4;
+    spacing = 6;
     # fixed-center = true; # idk what this does
 
     modules-left = ["custom/logo" "hyprland/workspaces" "mpris"];

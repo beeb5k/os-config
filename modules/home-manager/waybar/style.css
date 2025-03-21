@@ -21,6 +21,7 @@ tooltip {
     box-shadow: none;
     text-shadow: none;
     padding: 0px;
+    margin: 0px 2px;
     border-radius: 7px;
     color: @theme_text_color;
     animation: gradient_f 2s ease-in infinite;
@@ -39,13 +40,19 @@ tooltip {
     transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
 }
 
+#workspaces button.urgent {
+    color: @red_1;
+    animation: gradient_f 20s ease-in infinite;
+    transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
 #power-profiles-daemon,
 #custom-gpu-usage,
 #cpu,
 #memory,
 #custom-power,
 #clock,
-#workspaces,
+/* #workspaces, */
 #window,
 #custom-updates,
 #network,
@@ -57,7 +64,7 @@ tooltip {
     color: @theme_text_color;
     background: shade(alpha(@theme_text_colors, 0.9), 1.25);
     opacity: 1;
-    padding: 0px 4px;
+    margin: 6px;
 }
 
 #battery {
@@ -84,11 +91,13 @@ tooltip {
 /* workspace window block */
 #workspaces {
     border-radius: 10px;
+    padding: 0px 6px;
+    margin: 6px;
     background: mix(@theme_unfocused_base_color, white, 0.1);
 }
 
 #power-profiles-daemon.performance {
-    color: @red_1;
+    color: @orange_1;
 }
 
 #power-profiles-daemon.power-saver {
@@ -97,7 +106,7 @@ tooltip {
 
 #power-profiles-daemon.balanced {
     color: @blue_1;
-    padding: 0px 6px 0px 2px;
+    padding: 0px 8px 0px 0px;
     /* because icon for this is weird and a bit too much right so +2px padding for right and -2px 
     for left for whole waybar is 4px left and right */
 }
@@ -131,7 +140,8 @@ tooltip {
 
 #custom-logo {
     color: @blue_1;
-    font-size: 16px;
+    font-size: 18px;
+    margin-left: 3px;
 }
 
 #tray {}
