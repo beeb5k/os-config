@@ -40,7 +40,7 @@
       };
 
       exec-once = [
-        "swaybg -i ${config.home.homeDirectory}/nixos-config/wallpapers/wallpaper.jpg -m fill"
+        "swaybg -i ${config.home.homeDirectory}/nixos-config/wallpapers/wallpaper.png -m fill"
       ];
 
       windowrulev2 = [
