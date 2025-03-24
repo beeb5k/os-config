@@ -3,6 +3,7 @@
     ./hyperland/default.nix
     ./scripts/screenshot.nix
     ./waybar/waybar.nix
+    ./neovim/default.nix
     ./btop.nix
     ./desktop-entries.nix
     ./file-manager.nix
@@ -13,9 +14,7 @@
     ./git.nix
     # ./gnome.nix
     ./htop.nix
-    ./kitty.nix
     ./mako.nix
-    ./nvim.nix
     ./obs.nix
     ./satty.nix
     ./stylix.nix
