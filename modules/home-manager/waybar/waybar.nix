@@ -31,9 +31,6 @@
 
     modules-left = ["custom/logo" "hyprland/workspaces" "mpris"];
     modules-right = [
-      # "custom/gpu-usage"
-      "cpu"
-      "memory"
       "power-profiles-daemon"
       "network"
       "bluetooth"

@@ -69,6 +69,7 @@ tooltip {
 
 #battery {
     color: @green_1;
+    margin-right : 6px;
 }
 
 /* resource monitor block */
@@ -141,7 +142,7 @@ tooltip {
 #custom-logo {
     color: @blue_1;
     font-size: 18px;
-    margin-left: 3px;
+    margin-left: 6px;
 }
 
 #tray {}
