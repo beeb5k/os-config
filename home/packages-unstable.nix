@@ -1,9 +1,10 @@
 {unstable, ...}: {
   home.packages = with unstable; [
-    vscode
+    vscode-fhs
     go
     zig
     rustup
     bun
+    lua
   ];
 }
