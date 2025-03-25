@@ -3,9 +3,6 @@
     (pkgs.discord.override {
       withVencord = true;
     })
-    (nerdfonts.override {
-      fonts = ["JetBrainsMono"];
-    })
     grim
     nitch
     swaybg
