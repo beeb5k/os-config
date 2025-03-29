@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   inputs,
   ...
 }: let
@@ -44,25 +43,82 @@ in {
         lspsAndRuntimeDeps = {
           general = with pkgs; [
             ripgrep
-            fd # Telescope deps
+            fd
+            bat
+            fzf
+            lua-language-server
+            pyright
+            nil
           ];
         };
         startupPlugins = {
           general = with pkgs.vimPlugins; [
             lze
+            inputs.lzextras.packages.${pkgs.system}.default
             mini-base16
+            fzf-lua
             lualine-nvim
-            nvim-treesitter.withAllGrammars
-            gitsigns-nvim
             which-key-nvim
           ];
         };
         optionalPlugins = {
-          general = with pkgs.vimPlugins; [
-            telescope-nvim
-            nvim-autopairs
-            auto-save-nvim
-          ];
+          general = {
+            cmp = with pkgs.vimPlugins; [
+              nvim-cmp
+              luasnip
+              friendly-snippets
+              cmp_luasnip
+              cmp-buffer
+              cmp-path
+              cmp-nvim-lua
+              cmp-nvim-lsp
+              cmp-cmdline
+              cmp-nvim-lsp-signature-help
+              cmp-cmdline-history
+              lspkind-nvim
+            ];
+            treesitter = with pkgs.vimPlugins; [
+              nvim-treesitter.withAllGrammars
+            ];
+            telescope = with pkgs.vimPlugins; [
+              telescope-nvim
+            ];
+
+            git = with pkgs.vimPlugins; [
+              gitsigns-nvim
+              # diffview.nvim
+              # neogit
+              # vim-fugitive
+            ];
+
+            lsp = with pkgs.vimPlugins; [
+              nvim-lspconfig
+              # nvim-lsp-installer
+              # nvim-lsp-ts-utils
+              # nvim-lsp-signature-help
+              # nvim-navic
+              # trouble.nvim
+            ];
+
+            others = with pkgs.vimPlugins; [
+              # vim-closetag
+              # vim-surround
+              # vim-commentary
+              # vim-repeat
+              # vim-sensible
+              # vim-abolish
+              # vim-obsession
+              # vim-visual-multi
+              # vim-closetag
+              # vim-sleuth
+              comment-nvim
+              nvim-autopairs
+              eyeliner-nvim
+              oil-nvim
+              nvim-lspconfig
+              noice-nvim
+            ];
+          };
         };
         # shared libraries to be added to LD_LIBRARY_PATH
         # variable available to nvim runtime
@@ -117,7 +173,6 @@ in {
           # (and other information to pass to lua)
           categories = {
             general = true;
-            test = true;
           };
         };
       };

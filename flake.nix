@@ -6,6 +6,7 @@
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     stylix.url = "github:danth/stylix/release-24.11";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    lzextras.url = "github:BirdeeHub/lzextras";
 
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-24.11";
